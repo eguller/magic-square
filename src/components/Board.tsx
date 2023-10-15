@@ -10,7 +10,7 @@ function Board({state, onCellClick}: {state: State, onCellClick: any}) {
           {
           state.cells.map((row, rowIndex) => {
               return row.map((cell, columnIndex) => {
-                  return <CellComponent key={`cell-${rowIndex}-${columnIndex}`} cell={cell} isNextMove={state.isNextMove(cell)} beginningOfTheGame={state.isInitialState()} currentCell={cell.positionEquals(state.currentCell)} onClick={onCellClick} />
+                  return <CellComponent key={`cell-${rowIndex}-${columnIndex}`} cell={cell} isNextMove={state.isNextMove(cell)} beginningOfTheGame={state.isInitialState()} currentCell={cell.positionEquals(state.currentCell)} onClick={onCellClick} gameSize={state.size} />
               });
           })
           }

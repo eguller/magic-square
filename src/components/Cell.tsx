@@ -3,9 +3,10 @@ import Cell from '../game/Cell'
 import '../styles/styles.css'
 
 
-function Cell_Component({cell, isNextMove, beginningOfTheGame, currentCell, onClick}: {cell: Cell, isNextMove: boolean, beginningOfTheGame: boolean, currentCell: boolean, onClick: any}) {
-    const commondivStyles = "w-9 lg:w-12 xl:w-14 rounded-md aspect-w-1 aspect-h-1";
-    const cellConfig: CellConfig = createCellConfig(cell, isNextMove, beginningOfTheGame, currentCell, onClick);
+function Cell_Component({cell, isNextMove, beginningOfTheGame, currentCell, onClick, gameSize}: {cell: Cell, isNextMove: boolean, beginningOfTheGame: boolean, currentCell: boolean, onClick: any, gameSize: number}) {
+    const width = getWidth(gameSize);
+    const commondivStyles = `w-${width} rounded-md aspect-w-1 aspect-h-1`;
+    const cellConfig: CellConfig = createCellConfig(cell, isNextMove, beginningOfTheGame, currentCell, onClick, gameSize);
 
     return (
         <div className={`${commondivStyles} ${cellConfig.divStyle}`} onClick={() => cellConfig.onClick(cell)}>
@@ -15,7 +16,8 @@ function Cell_Component({cell, isNextMove, beginningOfTheGame, currentCell, onCl
     
 }
 
-function createCellConfig(cell: Cell, isNextMove: boolean, beginningOfTheGame: boolean, currentCell: boolean, onClick: any){
+function createCellConfig(cell: Cell, isNextMove: boolean, beginningOfTheGame: boolean, currentCell: boolean, onClick: any, gameSize){
+    
     if(cell.isEmpty()){
         if(isNextMove && !beginningOfTheGame){
             return new CellConfig("bg-green-200 cursor-pointer", "", "", onClick); 
@@ -33,6 +35,22 @@ function createCellConfig(cell: Cell, isNextMove: boolean, beginningOfTheGame: b
     }
 }
 
+function getWidth(gameSize: number){
+    if(gameSize === 5){
+        return "16";
+    } else if(gameSize === 6){
+        return "14";
+    } else if(gameSize === 7) {
+        return "12";
+    } else if(gameSize === 8) {
+        return "11";
+    } else if(gameSize === 9) {
+        return "9";
+    } else {
+        return "8";
+    }
+
+}
 class CellConfig {
     divStyle: string;
     spanStyle: string;

@@ -22,5 +22,14 @@ module.exports = {
     'grid-cols-8',
     'grid-cols-9',
     'grid-cols-10',
+    'w-8',
+    'w-9',
+    'w-10',
+    'w-11',
+    'w-12',
+    'w-14',
+    'w-16',
+    'w-18',
+    'w-20',
   ]
 }
