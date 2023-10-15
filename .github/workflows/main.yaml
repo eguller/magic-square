@@ -25,10 +25,10 @@ jobs:
         npm run build --if-present
   deploy:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v2
       with: 
         name: magic-square
         path: build
-        
