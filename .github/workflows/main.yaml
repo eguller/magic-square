@@ -35,7 +35,7 @@ jobs:
     - name: Download build directory
       uses: actions/download-artifact@v3
       with:
-        name: build
+        name: build-directory
     - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v2
       with: 
