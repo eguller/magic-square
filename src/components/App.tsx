@@ -42,7 +42,7 @@ function App() {
 
   return (
     <div className="container">
-      <div className="grid grid-cols-1 gap-8 max-w-lg">
+      <div className="grid grid-cols-1 gap-2 max-w-lg">
         <Header state={state} />
         <Board state={state} onCellClick={onCellClick}/>
         <Controls state={state} onGameSizeChange={onGameSizeChange} onNewGameClick={onNewGameClick} onBackButtonClick={backButtonOnClick} />

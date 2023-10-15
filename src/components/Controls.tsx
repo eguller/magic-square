@@ -29,7 +29,7 @@ function Controls({state, onGameSizeChange, onNewGameClick, onBackButtonClick}: 
               {
                 [5,6,7,8,9, 10].map((size) => {
                   const isCurrentSize = state.size === size ? "bg-blue-500" : "bg-blue-300 hover:bg-blue-700";
-                  return <button className={`${isCurrentSize} text-white font-bold rounded px-4 py-2 items-center`} onClick={() => onGameSizeChange(size)}>
+                  return <button className={`${isCurrentSize} text-white rounded px-2 py-1 items-center`} onClick={() => onGameSizeChange(size)}>
                     <span>{size} x {size}</span>
                   </button>
                 })
