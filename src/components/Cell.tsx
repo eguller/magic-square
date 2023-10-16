@@ -1,12 +1,20 @@
 import React from 'react'
 import Cell from '../game/Cell'
+import State from '../game/State'
 import '../styles/styles.css'
 
 
-function Cell_Component({cell, isNextMove, beginningOfTheGame, currentCell, onClick, gameSize}: {cell: Cell, isNextMove: boolean, beginningOfTheGame: boolean, currentCell: boolean, onClick: any, gameSize: number}) {
+function Cell_Component({cell, state, onClick}: {cell: Cell, state: State, onClick: any}) {
+    const gameSize = state.size;
+    const isNextMove = state.isNextMove(cell);
+    const beginningOfTheGame = state.isInitialState();
+    const currentCell = cell.positionEquals(state.currentCell);
+    const isGameOver = state.gameOver();
+    const won = state.won();
+
     const width = getWidth(gameSize);
     const commondivStyles = `w-${width} rounded-md aspect-w-1 aspect-h-1`;
-    const cellConfig: CellConfig = createCellConfig(cell, isNextMove, beginningOfTheGame, currentCell, onClick, gameSize);
+    const cellConfig: CellConfig = createCellConfig(cell, isNextMove, beginningOfTheGame, currentCell, isGameOver, won, onClick);
 
     return (
         <div className={`${commondivStyles} ${cellConfig.divStyle}`} onClick={() => cellConfig.onClick(cell)}>
@@ -16,7 +24,7 @@ function Cell_Component({cell, isNextMove, beginningOfTheGame, currentCell, onCl
     
 }
 
-function createCellConfig(cell: Cell, isNextMove: boolean, beginningOfTheGame: boolean, currentCell: boolean, onClick: any, gameSize){
+function createCellConfig(cell: Cell, isNextMove: boolean, beginningOfTheGame: boolean, currentCell: boolean, isGameOver: boolean, won: boolean, onClick: any){
     
     if(cell.isEmpty()){
         if(isNextMove && !beginningOfTheGame){
@@ -28,7 +36,15 @@ function createCellConfig(cell: Cell, isNextMove: boolean, beginningOfTheGame: b
         }
     } else {
         if(currentCell){
-            return new CellConfig("bg-orange-300  ", "border-4 border-blue-400", cell.value.toString(), onClick)
+            if(isGameOver) {
+                if(won) {
+                    return new CellConfig("bg-orange-300  ", "border-4 border-green-400", cell.value.toString(), onClick)
+                } else {
+                    return new CellConfig("bg-orange-300  ", "border-4 border-red-400", cell.value.toString(), onClick)     
+                }
+            } else {
+                return new CellConfig("bg-orange-300  ", "border-4 border-blue-400", cell.value.toString(), onClick)
+            }
         } else {
             return new CellConfig("bg-orange-300 cursor-pointer", "",  cell.value.toString(), onClick);
         }
